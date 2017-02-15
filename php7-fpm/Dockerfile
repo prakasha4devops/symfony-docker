@@ -26,6 +26,8 @@ RUN buildDeps=" \
         libtidy-dev \
         libxml2-dev \
         git  \
+        vim  \
+        nano  \
     " \
     && apt-get install -y $buildDeps --no-install-recommends \
     && rm -r /var/lib/apt/lists/* \
@@ -117,5 +119,8 @@ RUN echo "xdebug.remote_host=\"symfony.dev\"" >> /usr/local/etc/php/conf.d/docke
 
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
+
+RUN echo 'alias sf-log-clear="cat /dev/null > app/logs/dev.log;cat /dev/null > app/logs/prod.log;"' >> ~/.bashrc
+RUN echo 'alias sf3-log-clear="cat /dev/null > var/logs/dev.log;cat /dev/null > var/logs/prod.log;"' >> ~/.bashrc
 
 WORKDIR /var/www/symfony
