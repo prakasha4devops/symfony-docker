@@ -1,5 +1,5 @@
 # See https://github.com/docker-library/php/blob/4677ca134fe48d20c820a19becb99198824d78e3/7.0/fpm/Dockerfile
-FROM php:7.0-fpm
+FROM php:5.6-fpm
 
 MAINTAINER Prakash Admane <prakash.admane@gmail.com>
 
@@ -31,9 +31,9 @@ RUN buildDeps=" \
         vim  \
         nano  \
         # for mongodb
-         libssl-dev \
+        libssl-dev \
         # for rabbit mq
-         librabbitmq-dev \
+        librabbitmq-dev \
     " \
     && apt-get install -y $buildDeps --no-install-recommends \
     && rm -r /var/lib/apt/lists/* \
@@ -68,16 +68,8 @@ RUN buildDeps=" \
       sysvshm \
       tidy \
       json \
-      ftp  \
-      soap
+      ftp
 
-
-# Install memcached
-RUN apt-get install -y libmemcached-dev \
-  && git clone https://github.com/php-memcached-dev/php-memcached /usr/src/php/ext/memcached \
-  && cd /usr/src/php/ext/memcached && git checkout -b php7 origin/php7 \
-  && docker-php-ext-configure memcached \
-  && docker-php-ext-install memcached
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -114,6 +106,7 @@ RUN curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar \
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
 
+
 # install xdebug
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
@@ -125,6 +118,7 @@ RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-
 RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_host=\"symfony.dev\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 
 
 RUN echo 'alias sf="php app/console"' >> ~/.bashrc
