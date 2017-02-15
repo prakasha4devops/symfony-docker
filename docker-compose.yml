@@ -13,7 +13,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     php:
-        build: php5.6-fpm
+        build: php7-fpm
         #environment:
            # - GITHUB_TOKEN:
         ports:
