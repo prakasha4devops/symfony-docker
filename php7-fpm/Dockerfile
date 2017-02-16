@@ -133,9 +133,9 @@ RUN echo 'alias sf="php /var/www/symfony/app/console"' >> ~/.bashrc
 RUN echo 'alias sf3="php /var/www/symfony/bin/console"' >> ~/.bashrc
 
 RUN echo 'alias sf-clear-cache="php /var/www/symfony/app/console cache:clear --env=dev && php /var/www/symfony/app/console cache:clear --env=prod"' >> ~/.bashrc
-RUN echo 'alias sf3-clear-cache="php /var/www/symfony/bin/console cache:clear --env=dev && /var/www/symfony/bin/console cache:clear --env=dev --env=prod"' >> ~/.bashrc
+RUN echo 'alias sf3-clear-cache="php /var/www/symfony/bin/console cache:clear --env=dev && php /var/www/symfony/bin/console cache:clear --env=prod"' >> ~/.bashrc
 
-RUN echo 'alias sf-clear-log="cat /dev/null > app/logs/dev.log;cat /dev/null > app/logs/prod.log;"' >> ~/.bashrc
-RUN echo 'alias sf3-clear-log="cat /dev/null > var/logs/dev.log;cat /dev/null > var/logs/prod.log;"' >> ~/.bashrc
+RUN echo 'alias sf-clear-log="cat /dev/null > /var/www/symfony/app/logs/dev.log;cat /dev/null > /var/www/symfony/app/logs/prod.log;"' >> ~/.bashrc
+RUN echo 'alias sf3-clear-log="cat /dev/null > /var/www/symfony/var/logs/dev.log;cat /dev/null > /var/www/symfony/var/logs/prod.log;"' >> ~/.bashrc
 
 WORKDIR /var/www/symfony
