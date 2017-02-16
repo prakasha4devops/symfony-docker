@@ -118,19 +118,24 @@ RUN pecl install mongodb \
 RUN pecl install xdebug
 RUN docker-php-ext-enable xdebug
 RUN echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "display_errors = On" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_enable=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "display_startup_errors = true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "display_errors = true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_enable=true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_connect_back=true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_host=\"symfony.dev\"" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_host=localhost" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_autostart=true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_log=/var/log/nginx/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 
-RUN echo 'alias sf="php app/console"' >> ~/.bashrc
-RUN echo 'alias sf3="php bin/console"' >> ~/.bashrc
+RUN echo 'alias sf="php /var/www/symfony/app/console"' >> ~/.bashrc
+RUN echo 'alias sf3="php /var/www/symfony/bin/console"' >> ~/.bashrc
 
-RUN echo 'alias sf-log-clear="cat /dev/null > app/logs/dev.log;cat /dev/null > app/logs/prod.log;"' >> ~/.bashrc
-RUN echo 'alias sf3-log-clear="cat /dev/null > var/logs/dev.log;cat /dev/null > var/logs/prod.log;"' >> ~/.bashrc
+RUN echo 'alias sf-clear-cache="php /var/www/symfony/app/console cache:clear --env=dev && php /var/www/symfony/app/console cache:clear --env=prod"' >> ~/.bashrc
+RUN echo 'alias sf3-clear-cache="php /var/www/symfony/bin/console cache:clear --env=dev && /var/www/symfony/bin/console cache:clear --env=dev --env=prod"' >> ~/.bashrc
+
+RUN echo 'alias sf-clear-log="cat /dev/null > app/logs/dev.log;cat /dev/null > app/logs/prod.log;"' >> ~/.bashrc
+RUN echo 'alias sf3-clear-log="cat /dev/null > var/logs/dev.log;cat /dev/null > var/logs/prod.log;"' >> ~/.bashrc
 
 WORKDIR /var/www/symfony
