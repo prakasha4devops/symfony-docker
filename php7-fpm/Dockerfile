@@ -125,11 +125,16 @@ RUN echo "memory_limit=${PHP_MEMORY_LIMIT}" > /usr/local/etc/php/conf.d/docker-p
 RUN echo "date.timezone=${PHP_DATE_TIMEZONE}" > /usr/local/etc/php/conf.d/docker-php-ext-date-timezone.ini
 
 # install sendmail package
-RUN apt-get update && apt-get install -y sendmail sendmail-bin --install-suggests --install-recommends
+RUN apt-get update && apt-get install -y sendmail sendmail-bin
 
 # sendmail
+RUN echo "SMTP=localhost" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
+RUN echo "smtp_port=25" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
 RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
 
+#RUN apt-get update &&  apt-get install -y  ssmtp && \
+#    echo "sendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini && \
+#    echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
 
 
 # install xdebug

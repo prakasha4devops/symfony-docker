@@ -37,6 +37,8 @@ services:
         #restart: always
         volumes:
             - ./logs/nginx/:/var/log/nginx
+        links:
+            - php
     elk:
         image: willdurand/elk
         ports:
