@@ -142,10 +142,20 @@ $ docker rmi $(docker images -q)
 # Restarting all running docker containers
 $ docker restart $(docker ps -aq)
 
+# docker restart
+$ docker-compose restart
+
 OR
  
 # Recreating docker
 $ docker-compose up -d 
+
+
+# stop docker
+$ docker-compose stop
+ 
+# docker usage
+$ docker ps -s
 
 ```
 
