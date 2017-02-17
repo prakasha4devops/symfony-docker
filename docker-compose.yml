@@ -21,6 +21,13 @@ services:
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/symfony
             - ./logs/symfony:/var/www/symfony/app/logs
+        environment:
+            SMTP_PORT: 25
+            PHP_INI_MEMORY_LIMIT : 512M
+        links:
+            - db
+            - mailcatcher
+
     nginx:
         build: nginx
         ports:
@@ -45,3 +52,9 @@ services:
         image: phpmyadmin/phpmyadmin
         ports:
             - "8080:80"
+
+    mailcatcher:
+        build: mailcatcher
+        ports:
+            - 1025:1025
+            - 1080:1080

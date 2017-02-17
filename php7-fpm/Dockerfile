@@ -3,6 +3,10 @@ FROM php:7.1-fpm
 
 MAINTAINER Prakash Admane <prakash.admane@gmail.com>
 
+# Environmental Variables
+ENV PHP_MEMORY_LIMIT 1024M
+ENV PHP_DATE_TIMEZONE UTC
+
 # Install additional packages
 RUN apt-get update && apt-get install -y git openssh-client unzip wget curl build-essential --no-install-recommends
 
@@ -113,6 +117,20 @@ RUN curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar \
 # install mongodb ext
 RUN pecl install mongodb \
     && docker-php-ext-enable mongodb
+
+# Memory Limit
+RUN echo "memory_limit=${PHP_MEMORY_LIMIT}" > /usr/local/etc/php/conf.d/docker-php-ext-memory-limit.ini
+
+# Time Zone
+RUN echo "date.timezone=${PHP_DATE_TIMEZONE}" > /usr/local/etc/php/conf.d/docker-php-ext-date-timezone.ini
+
+# install sendmail package
+RUN apt-get update && apt-get install -y sendmail sendmail-bin --install-suggests --install-recommends
+
+# sendmail
+RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
+
+
 
 # install xdebug
 RUN pecl install xdebug
