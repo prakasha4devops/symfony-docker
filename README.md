@@ -92,13 +92,15 @@ This results in the following running containers:
 $ docker ps -a
  OR
 $ docker-compose ps
-           Name                          Command               State              Ports            
---------------------------------------------------------------------------------------------------
-dockersymfony_db_1            /entrypoint.sh mysqld            Up      0.0.0.0:3306->3306/tcp      
-dockersymfony_elk_1           /usr/bin/supervisord -n -c ...   Up      0.0.0.0:81->80/tcp          
-dockersymfony_nginx_1         nginx                            Up      443/tcp, 0.0.0.0:80->80/tcp
-dockersymfony_php_1           php-fpm                          Up      0.0.0.0:9000->9000/tcp      
-```
+            Name                          Command               State                       Ports
+ ---------------------------------------------------------------------------------------------------------------------
+ dockersymfony_db_1            docker-entrypoint.sh mysqld      Up      0.0.0.0:3306->3306/tcp
+ dockersymfony_elk_1           /usr/bin/supervisord -n -c ...   Up      0.0.0.0:81->80/tcp
+ dockersymfony_mailcatcher_1   /run.sh                          Up      0.0.0.0:1025->1025/tcp, 0.0.0.0:1080->1080/tcp
+ dockersymfony_nginx_1         nginx                            Up      443/tcp, 0.0.0.0:80->80/tcp
+ dockersymfony_php_1           docker-php-entrypoint php-fpm    Up      0.0.0.0:9000->9000/tcp
+ dockersymfony_phpmyadmin_1    /run.sh phpmyadmin               Up      0.0.0.0:8080->80/tcp
+ ```
 
 ## Useful commands
 
