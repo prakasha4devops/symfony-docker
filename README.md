@@ -1,5 +1,5 @@
 # Docker images for Symfony framework development 
-# (PHP7-FPM - NGINX - MySQL - ELK)
+# (PHP7-FPM - NGINX - MySQL - ELK - PHPMYADMIN - MAILCATCHER - REDIS)
 
 [![Build Status](https://travis-ci.org/maxpou/docker-symfony.svg?branch=master)](https://travis-ci.org/maxpou/docker-symfony)
 
