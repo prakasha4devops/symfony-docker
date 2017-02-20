@@ -1,4 +1,4 @@
-# Docker Symfony (PHP7-FPM - NGINX - MySQL - ELK)
+# Docker images for Symfony framework development (PHP7-FPM - NGINX - MySQL - ELK)
 
 [![Build Status](https://travis-ci.org/maxpou/docker-symfony.svg?branch=master)](https://travis-ci.org/maxpou/docker-symfony)
 
