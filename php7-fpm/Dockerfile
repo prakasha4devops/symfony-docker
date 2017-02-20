@@ -147,7 +147,7 @@ RUN echo "SMTP=mailcatcher" > /usr/local/etc/php/conf.d/docker-php-ext-mailcatch
 #RUN echo "smtp_port=25" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
 RUN echo "sendmail_path=/usr/bin/env catchmail --smtp-ip mailcatcher -f docker@symfony.dev" > /usr/local/etc/php/conf.d/docker-php-ext-mailcatcher.ini
 
-#res start sendmail
+#restart  sendmail if not started by default
 RUN service sendmail restart
 
 #RUN apt-get update &&  apt-get install -y  ssmtp && \
@@ -167,7 +167,7 @@ RUN echo "xdebug.idekey=\"PHPSTORM\"" >> /usr/local/etc/php/conf.d/docker-php-ex
 RUN echo "xdebug.remote_port=9001" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_host=localhost" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.remote_autostart=true" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.remote_log=/var/log/nginx/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.remote_log=/var/log/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 
 RUN echo 'alias sf="php /var/www/symfony/app/console"' >> ~/.bashrc

@@ -18,6 +18,7 @@ services:
            # - GITHUB_TOKEN:
         ports:
             - 9000:9000
+            - 9002:9001
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/symfony
             - ./logs/symfony:/var/www/symfony/app/logs
@@ -54,6 +55,8 @@ services:
         image: phpmyadmin/phpmyadmin
         ports:
             - "8080:80"
+        links:
+          - db
 
     mailcatcher:
         build: mailcatcher
