@@ -127,10 +127,28 @@ RUN echo "date.timezone=${PHP_DATE_TIMEZONE}" > /usr/local/etc/php/conf.d/docker
 # install sendmail package
 RUN apt-get update && apt-get install -y sendmail sendmail-bin
 
+# Setup PHP to use mailcatcher image to send mails
+# The name of the linked container must be "mailcatcher"
+
+# Install dependencies
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -q -y \
+    libsqlite3-dev \
+    ruby \
+    ruby-dev \
+    build-essential && \
+    gem install --no-ri --no-rdoc mailcatcher --version 0.5.12 && \
+    apt-get remove -y build-essential && \
+    apt-get autoremove -y && \
+    apt-get clean
+
 # sendmail
-RUN echo "SMTP=localhost" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
-RUN echo "smtp_port=25" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
-RUN echo "sendmail_path=/usr/sbin/sendmail -t -i" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
+RUN echo "SMTP=mailcatcher" > /usr/local/etc/php/conf.d/docker-php-ext-mailcatcher.ini
+#RUN echo "smtp_port=25" > /usr/local/etc/php/conf.d/docker-php-ext-sendmail.ini
+RUN echo "sendmail_path=/usr/bin/env catchmail --smtp-ip mailcatcher -f docker@symfony.dev" > /usr/local/etc/php/conf.d/docker-php-ext-mailcatcher.ini
+
+#res start sendmail
+RUN service sendmail restart
 
 #RUN apt-get update &&  apt-get install -y  ssmtp && \
 #    echo "sendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini && \
