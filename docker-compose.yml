@@ -16,15 +16,15 @@ services:
         build: php7-fpm
         #environment:
            # - GITHUB_TOKEN:
+        expose:
+            - 9000
         ports:
             - 9000:9000
-            - 9002:9001
+            - "9001:9001"
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/symfony
+            - ${SYMFONY_APP2_PATH}:/var/www/symfony2
             - ./logs/symfony:/var/www/symfony/app/logs
-        environment:
-            SMTP_PORT: 25
-            PHP_INI_MEMORY_LIMIT : 512M
         links:
             - db
             - mailcatcher
@@ -40,6 +40,7 @@ services:
             - ./logs/nginx/:/var/log/nginx
         links:
             - php
+
     elk:
         image: willdurand/elk
         ports:
@@ -50,7 +51,6 @@ services:
         volumes_from:
             - php
             - nginx
-
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
