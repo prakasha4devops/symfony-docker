@@ -23,11 +23,11 @@ services:
             - "9001:9001"
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/symfony
-            - ${SYMFONY_APP2_PATH}:/var/www/symfony2
-            - ./logs/symfony:/var/www/symfony/app/logs
+          #  - ${SYMFONY_APP2_PATH}:/var/www/symfony2
+
         links:
             - db
-            - mailcatcher
+            # - mailcatcher
 
     nginx:
         build: nginx

@@ -10,7 +10,7 @@ ADD symfony.conf /etc/nginx/sites-available/
 ADD symfony2.conf /etc/nginx/sites-available/
 
 RUN ln -s /etc/nginx/sites-available/symfony.conf /etc/nginx/sites-enabled/symfony
-RUN ln -s /etc/nginx/sites-available/symfony2.conf /etc/nginx/sites-enabled/symfony2
+#RUN ln -s /etc/nginx/sites-available/symfony2.conf /etc/nginx/sites-enabled/symfony2
 
 RUN rm /etc/nginx/sites-enabled/default
 

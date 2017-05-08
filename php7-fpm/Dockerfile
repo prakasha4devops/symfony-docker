@@ -38,6 +38,7 @@ RUN buildDeps=" \
          libssl-dev \
         # for rabbit mq
          librabbitmq-dev \
+         cron \
     " \
     && apt-get install -y $buildDeps --no-install-recommends \
     && rm -r /var/lib/apt/lists/* \
@@ -154,6 +155,8 @@ RUN service sendmail restart
 #    echo "sendmail_path = /usr/sbin/ssmtp -t" > /usr/local/etc/php/conf.d/sendmail.ini && \
 #    echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
 
+RUN sed -i -r 's/\;ping.path/ping.path/'  /usr/local/etc/php-fpm.d/www.conf \
+    && sed  -r 's/\;ping.response = pong/ping.response=OK/' -i  /usr/local/etc/php-fpm.d/www.conf
 
 # install xdebug
 RUN pecl install xdebug
@@ -170,6 +173,9 @@ RUN echo "xdebug.remote_autostart=true" >> /usr/local/etc/php/conf.d/docker-php-
 RUN echo "xdebug.remote_handler=dbgp" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN echo "xdebug.remote_log=/var/log/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
+RUN echo "opcache.load_comments=1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.save_comments = 1" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 
 RUN echo 'alias sf="php /var/www/symfony/app/console"' >> ~/.bashrc
