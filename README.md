@@ -161,6 +161,9 @@ $ docker-compose stop
 $ docker ps -s
 
 ```
+## Mailcatcher
+
+php -r 'mail("test@test.com", "test1", "test1");';
 
 ## FAQ
 
