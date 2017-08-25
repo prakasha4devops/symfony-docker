@@ -21,6 +21,7 @@ Docker-symfony gives you everything you need for developing Symfony application.
     ```bash
     $ docker-compose build
     $ docker-compose up -d
+    $ docker-compose up -d --build
     ```
 
 3. Update your system host file (add symfony.dev)
