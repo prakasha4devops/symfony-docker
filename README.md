@@ -158,6 +158,12 @@ $ docker-compose up -d
 # stop docker
 $ docker-compose stop
  
+$ docker stop $(docker ps -a -q)
+
+# remove all of Docker containers
+$ docker rm $(docker ps -a -q)
+
+
 # docker usage
 $ docker ps -s
 
